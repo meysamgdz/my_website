@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Testimonials{% endblock %}
+
+{% block content %}
+<section class="testimonials-section">
+    <h1>Client Testimonials</h1>
+    <div class="testimonials-grid">
+        {% for testimonial in testimonials %}
+        <div class="testimonial-card">
+            <div class="testimonial-image">
+                <img src="{{ url_for('static', filename='images/' + testimonial.image) }}" alt="{{ testimonial.name }}">
+            </div>
+            <div class="testimonial-content">
+                <p class="quote">"{{ testimonial.quote }}"</p>
+                <div class="client-info">
+                    <h4>{{ testimonial.name }}</h4>
+                    <p class="role">{{ testimonial.role }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .testimonials-section {
+        padding: 4rem 0;
+    }
+    .testimonials-section h1 {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    .testimonial-card {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 2rem;
+        background: #bababa;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        align-items: center;
+    }
+    .testimonial-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+    .testimonial-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .quote {
+        font-style: italic;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: #555;
+    }
+    .client-info h4 {
+        color: #2c3e50;
+        margin-bottom: 0.2rem;
+    }
+    .role {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+    }
+    @media (max-width: 768px) {
+        .testimonial-card {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+        .testimonial-image {
+            margin: 0 auto;
+        }
+    }
+</style>
+{% endblock %}

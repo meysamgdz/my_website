@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Thank You{% endblock %}
+
+{% block content %}
+<section class="thank-you">
+    <h1>Thank You!</h1>
+    <p>Your message has been sent successfully. I'll get back to you as soon as possible.</p>
+    <a href="{{ url_for('home_page') }}" class="btn">Back to Home</a>
+</section>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .thank-you {
+        text-align: center;
+        padding: 4rem 0;
+    }
+    .thank-you h1 {
+        margin-bottom: 1.5rem;
+        color: #2ecc71;
+    }
+    .thank-you p {
+        margin-bottom: 2rem;
+        font-size: 1.2rem;
+    }
+</style>
+{% endblock %}

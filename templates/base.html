@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meysam Goodarzi - {% block title %}{% endblock %}</title>
+
+    <!-- Fonts and Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #cad1db; /* Slightly darker than plain white */
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: rgba(44, 62, 80, 0.7); /* Transparent dark blue */
+            backdrop-filter: blur(6px);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .social-icons-header {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icons-header a {
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-icons-header a:hover {
+            color: #3498db;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 6rem auto 2rem;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #466594;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        a:hover {
+            color: #3498db;
+        }
+        footer {
+            background-color: rgba(44, 62, 80, 0.7); /* Match header for consistency */
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+
+        footer .social-icons {
+            margin-bottom: 0.5rem;
+        }
+
+        footer .social-icons a {
+            color: white;
+            margin: 0 12px;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        footer .social-icons a:hover {
+            color: #3498db;
+        }
+
+    </style>
+
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="social-icons-header">
+                <a href="https://www.linkedin.com/in/meysam-goodarzi-5018b0b7/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/meysamgdz" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://scholar.google.com/citations?user=YOUR_ID&user=ZI_E4GIAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('home_page') }}">Home</a></li>
+                <li><a href="{{ url_for('about_page') }}">About</a></li>
+                <li><a href="{{ url_for('project_page') }}">Projects</a></li>
+                <li><a href="{{ url_for('service_page') }}">Services</a></li>
+                <li><a href="{{ url_for('testimonial_page') }}">Testimonials</a></li>
+                <li><a href="{{ url_for('contact_page') }}">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/meysam-goodarzi-5018b0b7/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/meysamgdz" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://scholar.google.com/citations?user=YOUR_ID&user=ZI_E4GIAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i></a>
+        </div>
+        <p>&copy; 2025 Meysam Goodarzi. All rights reserved.</p>
+    </footer>
+</body>
+</html>

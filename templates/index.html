@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1>Meysam Goodarzi</h1>
+            <h2>Data Scientist & Instructor</h2>
+            <p>Hi, I'm Meysam Goodarzi, a Data Scientist with expertise in Data, AI, and Algorithm Design. I work
+                closely with clients to understand their needs and provide customized solutions.
+                Contact me to learn more.</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('about_page') }}" class="btn">About Me</a>
+                <a href="{{ url_for('contact_page') }}" class="btn btn-outline">Contact</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="profile-image-wrapper">
+                <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Meysam Goodarzi">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="featured-projects">
+    <h2>Featured Projects</h2>
+    <div class="projects-grid">
+        {% for project in projects[:3] %}
+        <div class="project-card">
+            <i class="fas {{ project.icon }} project-icon"></i>
+            <div class="project-info">
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.description }}</p>
+                <a href="{{ url_for('project_detail', project_id=project.id) }}" class="btn">View Project</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .hero {
+        padding: 5rem 0;
+    }
+    .hero-content {
+        display: flex;
+        align-items: center;
+        gap: 4rem;
+    }
+    .hero-text {
+        flex: 1;
+    }
+    .hero-image {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+    .profile-image-wrapper {
+        width: 360px;
+        height: 360px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 5px solid #3498db;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    .profile-image-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+    .hero h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #2c3e50;
+    }
+    .hero h2 {
+        font-size: 1.8rem;
+        font-weight: 400;
+        margin-bottom: 1.5rem;
+        color: #3498db;
+    }
+    .hero p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        color: #555;
+        max-width: 500px;
+    }
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+    }
+    .btn-outline {
+        background: transparent;
+        border: 2px solid #3498db;
+        color: #3498db;
+    }
+    .featured-projects {
+        margin: 4rem 0;
+    }
+    .featured-projects h2 {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+    .project-card {
+        background:  #bababa;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        transition: transform 0.3s;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+    .project-icon {
+        font-size: 5rem;
+        color: #2c3e50;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        margin-left: 8.5rem;
+        display: block;
+    }
+    .project-card:hover {
+        transform: translateY(-10px);
+    }
+    .project-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+    .project-info {
+        padding: 1.5rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .project-info p {
+        flex-grow: 1;
+    }
+    .project-info .btn {
+        align-self: flex-start;
+        margin-top: 1rem;
+    }
+    @media (max-width: 568px) {
+        .hero-content {
+            flex-direction: column;
+        }
+        .hero-image {
+            order: -1;
+            margin-bottom: 2rem;
+        }
+        .profile-image-wrapper {
+            width: 110px;
+            height: 110px;
+        }
+        .hero-buttons {
+            flex-direction: column;
+        }
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block content %}
+<section class="project-detail">
+    <h1 class="project-title">{{ project.title }}</h1>
+
+    {% if prev_project %}
+        <a href="{{ url_for('project_detail', project_id=prev_project.id) }}" class="arrow arrow-left" aria-label="Previous Project">&lt;</a>
+    {% else %}
+        <span class="arrow arrow-left disabled">&lt;</span>
+    {% endif %}
+
+    {% if next_project %}
+        <a href="{{ url_for('project_detail', project_id=next_project.id) }}" class="arrow arrow-right" aria-label="Next Project">&gt;</a>
+    {% else %}
+        <span class="arrow arrow-right disabled">&gt;</span>
+    {% endif %}
+
+    <div class="project-content">
+        <div class="project-icon">
+            <i class="fas {{ project.icon }}"></i>
+        </div>
+        <div class="project-description">
+            <h2>Project Details</h2>
+            {% set lines = project.description.split('\n') %}
+            {% set bullets = [] %}
+            {% for line in lines %}
+                {% if line.strip().startswith('-') %}
+                    {% set _ = bullets.append(line.strip()[1:] | trim) %}
+                {% else %}
+                    <p>{{ line }}</p>
+                {% endif %}
+            {% endfor %}
+
+            {% if bullets %}
+                <ul style="padding-left: 1.5rem; margin-top: 0.5rem;">
+                    {% for bullet in bullets %}
+                        <li>{{ bullet }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% if project.link %}
+                <a href="{{ project.link }}" target="_blank" class="btn">More Details</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .project-title {
+        text-align: center;
+        font-weight: 700;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .arrow {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 3rem;
+        font-weight: bold;
+        color: rgba(44, 62, 80, 0.6);
+        text-decoration: none;
+        user-select: none;
+        transition: color 0.3s ease;
+        cursor: pointer;
+        width: 3rem;
+        text-align: center;
+        z-index: 1000;
+    }
+
+    .arrow-left {
+        left: 1rem;
+    }
+
+    .arrow-right {
+        right: 1rem;
+    }
+
+    .arrow:hover:not(.disabled) {
+        color: rgba(44, 62, 80, 1);
+    }
+
+    .disabled {
+        cursor: default;
+        color: rgba(44, 62, 80, 0.2);
+        pointer-events: none;
+    }
+
+    .project-detail {
+        padding: 2rem 0;
+    }
+    .project-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    .project-icon {
+        font-size: 10rem;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        margin-left: 4rem;
+        display: block;
+    }
+    .project-description h2 {
+        margin-bottom: 1rem;
+    }
+    .project-description p {
+        margin-bottom: 1rem;
+    }
+    @media (max-width: 768px) {
+        .project-content {
+            grid-template-columns: 1fr;
+        }
+        .project-icon {
+            margin-left: 0;
+            text-align: center;
+        }
+        .project-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .arrow {
+            font-size: 2.5rem;
+            width: 2.5rem;
+        }
+        .arrow-left {
+            left: 0.5rem;
+        }
+        .arrow-right {
+            right: 0.5rem;
+        }
+    }
+</style>
+{% endblock %}
