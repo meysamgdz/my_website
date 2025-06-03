@@ -33,7 +33,7 @@ projects = [
         'description': 'Modeling of synchronization networks and algorithm design using data analysis based on '
                        'probabilistic graphical models & inference algorithms such as:\n'
                        '- Bayesian inference\n'
-                       '- Belief propagation on factor graphs.',
+                       '- Belief propagation on factor graphs',
         'card_description': 'Modeling of synchronization networks and algorithm design using data analysis based on '
                        'probabilistic graphical models & inference algorithms.',
         'image': 'sync.png',
@@ -48,7 +48,7 @@ projects = [
                        '- A DNN-assisted Particle-based Bayesian Joint Synchronization & Localization '
                        'algorithm\n'
                        '- A dashboard for the above-mentioned algorithms and the final demonstration '
-                       'in BOSCH factory.',
+                       'in BOSCH factory',
         'card_description': 'Design and implementation of a DNN-assisted Particle-based Bayesian Joint Synchronization '
                             '& Localization based on statistical modelling of communications networks.',
         'image': 'multi_vat.jpg',

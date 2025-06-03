@@ -26,7 +26,7 @@ app.config.update(
 
 mail = Mail(app)
 
-@app.route('/')
+@app.route('/', endpoint='home')
 def home_page():
     return render_template(
         'index.html',
