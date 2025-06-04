@@ -7,43 +7,47 @@
     <h1 class="project-title">{{ project.title }}</h1>
 
     {% if prev_project %}
-        <a href="{{ url_for('project_detail', project_id=prev_project.id) }}" class="arrow arrow-left" aria-label="Previous Project">&lt;</a>
+        <a href="{{ url_for('project_detail', project_id=prev_project.id) }}" class="arrow arrow-left project-nav" data-direction="right" aria-label="Previous Project">&lt;</a>
     {% else %}
         <span class="arrow arrow-left disabled">&lt;</span>
     {% endif %}
 
     {% if next_project %}
-        <a href="{{ url_for('project_detail', project_id=next_project.id) }}" class="arrow arrow-right" aria-label="Next Project">&gt;</a>
+        <a href="{{ url_for('project_detail', project_id=next_project.id) }}" class="arrow arrow-right project-nav" data-direction="left" aria-label="Next Project">&gt;</a>
     {% else %}
         <span class="arrow arrow-right disabled">&gt;</span>
     {% endif %}
 
-    <div class="project-content">
-        <div class="project-icon">
-            <i class="fas {{ project.icon }}"></i>
-        </div>
-        <div class="project-description">
-            <h2>Project Details</h2>
-            {% set lines = project.description.split('\n') %}
-            {% set bullets = [] %}
-            {% for line in lines %}
-                {% if line.strip().startswith('-') %}
-                    {% set _ = bullets.append(line.strip()[1:] | trim) %}
-                {% else %}
-                    <p>{{ line }}</p>
-                {% endif %}
-            {% endfor %}
-
-            {% if bullets %}
-                <ul style="padding-left: 1.5rem; margin-top: 0.5rem;">
-                    {% for bullet in bullets %}
-                        <li>{{ bullet }}</li>
+    <div id="project-wrapper">
+        <div id="project-content" class="project-content">
+            <div class="project-content-inner">
+                <div class="project-icon">
+                    <i class="fas {{ project.icon }}"></i>
+                </div>
+                <div class="project-description">
+                    <h2>Project Details</h2>
+                    {% set lines = project.description.split('\n') %}
+                    {% set bullets = [] %}
+                    {% for line in lines %}
+                        {% if line.strip().startswith('-') %}
+                            {% set _ = bullets.append(line.strip()[1:] | trim) %}
+                        {% else %}
+                            <p>{{ line }}</p>
+                        {% endif %}
                     {% endfor %}
-                </ul>
-            {% endif %}
-            {% if project.link %}
-                <a href="{{ project.link }}" target="_blank" class="btn">More Details</a>
-            {% endif %}
+
+                    {% if bullets %}
+                        <ul style="padding-left: 1.5rem; margin-top: 0.5rem;">
+                            {% for bullet in bullets %}
+                                <li>{{ bullet }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% if project.link %}
+                        <a href="{{ project.link }}" target="_blank" class="btn">More Details</a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -87,22 +91,50 @@
     .arrow:hover:not(.disabled) {
         color: rgba(44, 62, 80, 1);
     }
-
     .disabled {
         cursor: default;
         color: rgba(44, 62, 80, 0.2);
         pointer-events: none;
     }
-
+    #project-wrapper {
+        position: relative;
+        overflow: hidden;
+    }
     .project-detail {
         padding: 2rem 0;
     }
     .project-content {
+        transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+        will-change: transform;
+        position: relative;
+        opacity: 1;
+    }
+    @media (max-width: 768px) {
+        .project-content {
+            grid-template-columns: 1fr;
+        }
+    }
+    .project-content.slide-out-left {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    .project-content-inner {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
         max-width: 900px;
         margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+        .project-content-inner {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .project-content.slide-out-right {
+        transform: translateX(100%);
+        opacity: 0;
     }
     .project-icon {
         font-size: 10rem;
@@ -113,6 +145,10 @@
     }
     .project-description h2 {
         margin-bottom: 1rem;
+    }
+    .project-description .btn {
+        margin-top: 1rem; /* Adjust the value as needed */
+        display: inline-block; /* ensures margin works nicely */
     }
     .project-description p {
         margin-bottom: 1rem;
@@ -141,4 +177,27 @@
         }
     }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const content = document.getElementById('project-content');
+
+    document.querySelectorAll('.project-nav').forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const direction = this.dataset.direction;
+            const isLeft = direction === 'left';
+
+            // Add slide-out class
+            content.classList.add(isLeft ? 'slide-out-left' : 'slide-out-right');
+
+            // Wait for animation then redirect
+            setTimeout(() => {
+                window.location.href = this.href;
+            }, 500); // match the CSS transition time
+        });
+    });
+});
+</script>
 {% endblock %}
