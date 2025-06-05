@@ -42,7 +42,10 @@ MAIL_USERNAME=your_email@gmail.com
 MAIL_PASSWORD=your_app_password  # For Gmail, use an "App Password"
 ```
 
-### 5. Run the Development Server
+### 5. Add Images
+Add the folder `static/images` and copy your profile photo and logo of companies from which you have testimonies
+
+### 6. Run the Development Server
 ```bash
 flask run
 ```
