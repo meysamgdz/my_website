@@ -1,0 +1,35 @@
+# Virtual environment folders
+venv/
+env/
+ENV/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment variables file
+.env
+
+# IDE and editor folders
+.vscode/
+.idea/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# PythonAnywhere specific (if any)
+.pythonanywhere_wsgi.py
+
+# Logs and database files
+*.log
+*.sqlite3
+
+# Byte-compiled / optimized / DLL files
+*.so
+*.dylib
+
+# Static image files
+static/images/*
