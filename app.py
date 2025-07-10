@@ -9,17 +9,25 @@ load_dotenv()
 
 MAIL_USERNAME = os.getenv('MAIL_USERNAME')
 MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
 
 if not MAIL_USERNAME or not MAIL_PASSWORD:
-    raise ValueError("MAIL_USERNAME or MAIL_PASSWORD not set in environment")
+    raise ValueError("MAIL_USERNAME or MAIL_PASSWORD or OPENAI_API_KEY not set in environment")
 
 app = Flask(__name__, template_folder='./templates')
 
 # Set this in your environment
-openai.api_key = os.environ.get("OPENAI_API_KEY")
+openai.api_key = OPENAI_API_KEY
+
+# Initialize DeepSeek API client
+# openai.api_key = os.environ.get(DEEPSEEK_API_KEY)
+# openai.api_base = "https://api.deepseek.com"
 
 # Load your CV once at startup
-with open("cv.txt", "r", encoding="utf-8") as f:
+basedir = os.path.abspath(os.path.dirname(__file__))
+cv_path = os.path.join(basedir, "data", "my_cv.txt")
+with open(cv_path, "r", encoding="utf-8") as f:
     cv_text = f.read()
 
 # Email configuration
@@ -86,7 +94,6 @@ def ask():
     if not user_question:
         return jsonify({"error": "No question provided"}), 400
 
-    # Send question and CV to OpenAI
     try:
         system_prompt = (
             "You are Meysam Goodarzi's AI assistant. Answer questions based on this CV:\n\n"
@@ -94,20 +101,20 @@ def ask():
             "\n\nAnswer the user's question concisely and in first-person as if you are Meysam."
         )
 
-        completion = openai.ChatCompletion.create(
-            model="gpt-4",  # or "gpt-3.5-turbo" if you're cost-conscious
+        response = openai.chat.completions.create(
+            model="gpt-4.1-mini",
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_question}
             ]
         )
 
-        answer = completion['choices'][0]['message']['content'].strip()
+        answer = response.choices[0].message.content.strip()
         return jsonify({"answer": answer})
 
     except Exception as e:
         print("Error:", e)
-        return jsonify({"error": "Failed to get response from AI"}), 500
+        return jsonify({"error": "Something went wrong on the server."}), 500
 
 @app.route('/thank-you')
 def thank_you_page():
