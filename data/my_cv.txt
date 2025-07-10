@@ -1,0 +1,33 @@
+Meysam Goodarzi – CV Summary
+
+I hold a Ph.D. in Computer Science from Humboldt University of Berlin (2017–2023, magna cum laude). My dissertation focused on probabilistic graphical models with applications in synchronization and localization. My technical expertise includes Bayesian modeling, particle filters, and deep neural networks (DNNs).
+
+I also hold two master's degrees:
+- M.Sc. in Economics from University of Paris 1 Panthéon-Sorbonne (2021–2022, grade: 19/20), with a thesis on growth and inequality in economic networks using game theory and optimization.
+- M.Sc. in Telecommunications Engineering from University of Erlangen-Nuremberg (2014–2017, grade: 1.0/1.0), focusing on resource allocation and matrix-valued optimization.
+
+My professional experience includes:
+- Teaching Data Structures & Algorithms at the Hertie School of Governance (2025), covering core CS concepts, complexity analysis, and algorithmic policy applications using Git/Scrum.
+- Instructing Data Science at Spiced Academy, neue fische, ReDI School, and Masterschool (2024–2025), with topics including:
+  - OOP in Pandas
+  - Frequentist and Bayesian statistics
+  - A/B testing and RCTs
+  - Machine learning (regression, trees, KNN, ensembles)
+  - Time-series (ARIMA, XGBoost, LSTM)
+  - Tools: Streamlit, SQL, DBT, Tableau
+
+I worked as a Quantitative Consultant at d-fine GmbH (2023), analyzing insurance data using Python and SQL. I developed OOP-based data pipelines, unit-tested validation tools, and contributed to CI/CD web applications via GitLab.
+
+From 2017 to 2023, I was a researcher at IHP GmbH – Leibniz Institute for Innovative Microelectronics, contributing to EU Horizon 2020 5G projects. I:
+- Led the AI module: DNN-based NLOS detection, reinforcement learning (Deep Q-Networks), CNN-based radio maps.
+- Built localization/synchronization models with Bayesian networks, particle/Kalman filters.
+- Designed cost models using genetic algorithms.
+- Developed dashboards and mobility predictors using Streamlit and Markov models.
+
+Publications include journal articles in *IEEE Transactions on Communications*, covering Bayesian particle-based localization and 5G systems. Full list available on Google Scholar.
+
+Technical skills include Python (Numpy, Pandas, Scikit-learn, Keras), Matlab, SQL, object-oriented programming, and data visualization tools. I speak Persian (native), German (C1), English (C1), and French (B2).
+
+Contact: analytica@meysam-goodarzi.com
+Website: https://meysamgdz.pythonanywhere.com
+LinkedIn: https://www.linkedin.com/in/meysam-goodarzi-5018b0b7/
