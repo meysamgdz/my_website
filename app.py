@@ -1,8 +1,9 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for
+from flask import redirect, url_for, Flask, render_template, request, jsonify
 from flask_mail import Mail, Message
 from data.variable_values import projects, services, testimonials
 from dotenv import load_dotenv
+import openai
 
 load_dotenv()
 
@@ -13,6 +14,13 @@ if not MAIL_USERNAME or not MAIL_PASSWORD:
     raise ValueError("MAIL_USERNAME or MAIL_PASSWORD not set in environment")
 
 app = Flask(__name__, template_folder='./templates')
+
+# Set this in your environment
+openai.api_key = os.environ.get("OPENAI_API_KEY")
+
+# Load your CV once at startup
+with open("cv.txt", "r", encoding="utf-8") as f:
+    cv_text = f.read()
 
 # Email configuration
 app.config.update(
@@ -67,6 +75,39 @@ def contact_page():
     mail.send(msg)
 
     return redirect(url_for('thank_you_page'))
+
+
+# Add new API endpoint for chatbot
+@app.route("/ask", methods=["POST"])
+def ask():
+    data = request.get_json()
+    user_question = data.get("question", "")
+
+    if not user_question:
+        return jsonify({"error": "No question provided"}), 400
+
+    # Send question and CV to OpenAI
+    try:
+        system_prompt = (
+            "You are Meysam Goodarzi's AI assistant. Answer questions based on this CV:\n\n"
+            + cv_text +
+            "\n\nAnswer the user's question concisely and in first-person as if you are Meysam."
+        )
+
+        completion = openai.ChatCompletion.create(
+            model="gpt-4",  # or "gpt-3.5-turbo" if you're cost-conscious
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_question}
+            ]
+        )
+
+        answer = completion['choices'][0]['message']['content'].strip()
+        return jsonify({"answer": answer})
+
+    except Exception as e:
+        print("Error:", e)
+        return jsonify({"error": "Failed to get response from AI"}), 500
 
 @app.route('/thank-you')
 def thank_you_page():
